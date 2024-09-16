@@ -20,10 +20,10 @@ import (
 )
 
 func main() {
-    // Chuyển 120.000 vào STK 0011001932418 ngân hàng Vietin với ghi chú "ủng hộ lũ lụt"
-	code := vietqr.Generate(120000, "970415", "0011001932418", "ủng hộ lũ lụt")
-	fmt.Println(code)
-	// 00020101021238570010A00000072701270006970415011300110019324180208QRIBFTTA530370454061200005802VN62170813ung ho lu lut6304C15C
+  // Sinh mã chuyển khoản 120.000 vào STK 0011001932418 ngân hàng Vietin với ghi chú "ủng hộ lũ lụt"
+  code := vietqr.Generate(120000, "970415", "0011001932418", "ủng hộ lũ lụt")
+  fmt.Println(code)
+  // 00020101021238570010A00000072701270006970415011300110019324180208QRIBFTTA530370454061200005802VN62170813ung ho lu lut6304C15C
 }
 ```
 ### Mô tả cách sinh mã
@@ -186,6 +186,7 @@ Tôi chỉ thấy Napas đề cập tới webiste VietQR và trang web của nó
 ```
 vietqr.vn
 vietqr.io
+vietqr.co
 ```
 
 Tôi không biết các đơn vị này có thuộc Napas hay không, tôi đã thử tìm kiếm kỹ và không tìm được link nào của Napas đề cập tới những website trên cả. Tôi cho rằng 99% đây là những đơn vị cá nhân độc lập. Tôi viết để cảnh báo bạn hãy thận trọng khi đọc những thông tin từ họ, đừng nhầm tưởng họ là đại diện của Napas.

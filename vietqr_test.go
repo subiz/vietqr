@@ -50,5 +50,5 @@ func TestQR(t *testing.T) {
 func ExampleString() {
 	code := vietqr.Generate(120000, "970415", "0011001932418", "ủng hộ lũ lụt")
 	fmt.Println(code)
-	// Output: olleh
+	// Output: 00020101021238570010A00000072701270006970415011300110019324180208QRIBFTTA530370454061200005802VN62170813ung ho lu lut6304C15C
 }
