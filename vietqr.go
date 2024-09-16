@@ -2,6 +2,7 @@ package vietqr
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 	"unicode"
@@ -117,11 +118,35 @@ var Defaults = []Object{
 	// {"CRC                              ", "63",  4, 0, MANDATORY, nil},
 }
 
+var countryCodeM = map[string]string{
+	"JP": "Japan",
+	"KR": "Korea",
+	"MY": "Malaysia",
+	"RC": "China",
+	"RI": "Indonesia",
+	"RP": "Philippines",
+	"SG": "Singapore",
+	"TH": "Thailand",
+	"VN": "Viet Nam",
+}
+
+var currencyM = map[string]string{
+	"JPY": "392", // Yên Japan
+	"KRW": "410", // Won Korea
+	"MYR": "458", // Ringgit Malaysia
+	"CNY": "156", // Nhân dân tệ
+	"IDR": "360", // Rupiah Indonesia
+	"PHP": "608", // Peso Philippines
+	"SGD": "702", // Dollar Singapore
+	"THB": "764", // Baht Thailand
+	"VND": "704", // Viet Nam
+}
+
 // servicetype:
 //
 //	"QRIBFTTC": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến thẻ
 //	"QRIBFTTA": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến tài khoản
-func GenerateWithParams(onetime bool, servicetype string, amount int, bankBIN string, accountnumber, note string) string {
+func GenerateWithParams(onetime bool, servicetype string, amount float64, bankBIN string, accountnumber, note, currency, countryCode string) string {
 	contents := map[string]string{}
 	contents["00"] = "01"
 
@@ -136,9 +161,24 @@ func GenerateWithParams(onetime bool, servicetype string, amount int, bankBIN st
 	contents["380100"] = bankBIN       // "970468"        // bnb id
 	contents["380101"] = accountnumber // "0011009950446" // Consumer id
 	contents["3802"] = servicetype
-	contents["53"] = "704" // vnd
+	currencyCode := currencyM[currency]
+	if currencyCode != "" {
+		contents["53"] = currencyCode
+	}
+
+	if _, has := countryCodeM[countryCode]; has {
+		contents["58"] = countryCode
+	}
+	if math.IsNaN(amount) {
+		amount = 0
+	}
 	if amount > 0 {
-		contents["54"] = strconv.Itoa(amount)
+		if currencyCode == "704" { // vnd khong co phan thap phan
+			contents["54"] = strconv.Itoa(int(amount))
+		} else {
+			// todo: bo xung phan thap phan
+			contents["54"] = strconv.Itoa(int(amount))
+		}
 	}
 
 	note = strings.TrimSpace(note)
@@ -258,6 +298,6 @@ func ascii(text string) string {
 // Sinh mã VietQR tới STK
 // Generate(180000, "970423", "00134234", "ghi chu")
 // Xem bank.csv để tra mã BIN của ngân hàng
-func Generate(amount int, bankBIN string, accountnumber, note string) string {
-	return GenerateWithParams(true, "QRIBFTTA", amount, bankBIN, accountnumber, note)
+func Generate(amount float64, bankBIN string, accountnumber, note string) string {
+	return GenerateWithParams(true, "QRIBFTTA", amount, bankBIN, accountnumber, note, "VND", "VN")
 }

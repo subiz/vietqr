@@ -40,7 +40,7 @@ func TestQR(t *testing.T) {
 	}
 
 	for i, tc := range testcases {
-		out := vietqr.GenerateWithParams(tc.onetime, tc.servicetype, tc.amount, tc.bankBIN, tc.accountnumber, tc.note)
+		out := vietqr.GenerateWithParams(tc.onetime, tc.servicetype, float64(tc.amount), tc.bankBIN, tc.accountnumber, tc.note, "VND", "")
 		if out != tc.expect {
 			t.Errorf("SHOULD EQ IN [%d], out [%s], expect [%s]", i, out, tc.expect)
 		}
