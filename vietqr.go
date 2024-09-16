@@ -37,6 +37,7 @@ type Bank struct {
 	Name      string
 	ShortName string
 	Code      string
+	SWIFTCode string
 }
 
 // VNBankM maps BIN to Bank information
@@ -62,9 +63,10 @@ func loadBanks() {
 		}
 		VNBankM[strings.TrimSpace(record[1])] = Bank{
 			BIN:       strings.TrimSpace(record[1]),
-			Name:      strings.TrimSpace(record[4]),
+			Name:      strings.TrimSpace(record[5]),
 			ShortName: strings.TrimSpace(record[3]),
 			Code:      strings.TrimSpace(record[2]),
+			SWIFTCode: strings.TrimSpace(record[4]),
 		}
 	}
 }

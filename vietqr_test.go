@@ -7,7 +7,7 @@ import (
 	"github.com/subiz/vietqr"
 )
 
-func TestCrc32(t *testing.T) {
+func TestCrc(t *testing.T) {
 	testcases := []struct {
 		in     string
 		expect string
@@ -96,11 +96,13 @@ func TestQR(t *testing.T) {
 
 func TestBank(t *testing.T) {
 	testCases := []struct {
-		BIN  string
-		Code string
+		BIN       string
+		Code      string
+		SWIFTCode string
 	}{
-		{"970412", "PVCB"},
-		{"970425", "ABB"},
+		{"970412", "PVCB", "WBVNVNVX"},
+		{"970425", "ABB", "ABBKVNVX"},
+		{"970422", "MB", "MSCBVNVX"},
 	}
 
 	if len(vietqr.VNBankM) != 56 {
@@ -110,6 +112,10 @@ func TestBank(t *testing.T) {
 		bank := vietqr.VNBankM[tc.BIN]
 		if bank.Code != tc.Code {
 			t.Errorf("SHOULD EQ for Bank BIN [%s], expect [%s], got [%s]", tc.BIN, tc.Code, bank.Code)
+		}
+
+		if bank.SWIFTCode != tc.SWIFTCode {
+			t.Errorf("SWIFT code should equal for Bank BIN [%s], expect [%s], got [%s]", tc.BIN, tc.SWIFTCode, bank.SWIFTCode)
 		}
 	}
 }
