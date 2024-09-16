@@ -47,6 +47,26 @@ func TestQR(t *testing.T) {
 	}
 }
 
+func TestBank(t *testing.T) {
+	testCases := []struct {
+		BIN  string
+		Code string
+	}{
+		{"970412", "PVCB"},
+		{"970425", "ABB"},
+	}
+
+	if len(vietqr.VNBankM) != 56 {
+		t.Errorf("Must have %d banks, but got %d banks", 56, len(vietqr.VNBankM))
+	}
+	for _, tc := range testCases {
+		bank := vietqr.VNBankM[tc.BIN]
+		if bank.Code != tc.Code {
+			t.Errorf("SHOULD EQ for Bank BIN [%s], expect [%s], got [%s]", tc.BIN, tc.Code, bank.Code)
+		}
+	}
+}
+
 func ExampleString() {
 	code := vietqr.Generate(120000, "970415", "0011001932418", "ủng hộ lũ lụt")
 	fmt.Println(code)

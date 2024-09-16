@@ -1,8 +1,10 @@
 package vietqr
 
 import (
+	"encoding/csv"
 	"fmt"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 	"unicode"
@@ -34,7 +36,43 @@ var VNMAP = map[rune]rune{
 
 var ISO_IEC_13239_data [256]uint16
 
+type Bank struct {
+	BIN       string
+	Name      string
+	ShortName string
+	Code      string
+}
+
+var VNBankM = map[string]Bank{}
+
+func loadBanks() {
+	bankFile, err := os.Open("./bank.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer bankFile.Close()
+
+	csvReader := csv.NewReader(bankFile)
+	records, err := csvReader.ReadAll()
+	if err != nil {
+		panic(err)
+	}
+
+	for i, record := range records {
+		if i == 0 {
+			continue
+		}
+		VNBankM[strings.TrimSpace(record[1])] = Bank{
+			BIN:       strings.TrimSpace(record[1]),
+			Name:      strings.TrimSpace(record[4]),
+			ShortName: strings.TrimSpace(record[3]),
+			Code:      strings.TrimSpace(record[2]),
+		}
+	}
+}
+
 func initCrcTable(poly uint16) {
+	loadBanks()
 	for n := uint16(0); n < 256; n++ {
 		crc := n << 8
 		for i := 0; i < 8; i++ {
