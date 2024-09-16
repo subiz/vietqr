@@ -1,3 +1,4 @@
+// Package vietqr provides functions for converting bank transfer information to VietQR code
 package vietqr
 
 import (
@@ -9,9 +10,6 @@ import (
 	"strings"
 	"unicode"
 )
-
-const CRC_INIT uint16 = 0xFFFF
-const CRC_POLY uint16 = 0x1021
 
 var VNMAP = map[rune]rune{
 	'ạ': 'a', 'ả': 'a', 'ã': 'a', 'à': 'a', 'á': 'a', 'â': 'a', 'ậ': 'a', 'ầ': 'a', 'ấ': 'a',
@@ -34,8 +32,6 @@ var VNMAP = map[rune]rune{
 	'Đ': 'D',
 }
 
-var ISO_IEC_13239_data [256]uint16
-
 type Bank struct {
 	BIN       string
 	Name      string
@@ -43,8 +39,10 @@ type Bank struct {
 	Code      string
 }
 
+// VNBankM maps BIN to Bank information
 var VNBankM = map[string]Bank{}
 
+// loadBanks reads all banks in ./bank.csv and store in VNBankM map
 func loadBanks() {
 	bankFile, err := os.Open("./bank.csv")
 	if err != nil {
@@ -59,7 +57,7 @@ func loadBanks() {
 	}
 
 	for i, record := range records {
-		if i == 0 {
+		if i == 0 { // skip header
 			continue
 		}
 		VNBankM[strings.TrimSpace(record[1])] = Bank{
@@ -71,36 +69,22 @@ func loadBanks() {
 	}
 }
 
-func initCrcTable(poly uint16) {
-	loadBanks()
-	for n := uint16(0); n < 256; n++ {
-		crc := n << 8
-		for i := 0; i < 8; i++ {
-			bit := (crc & 0x8000) != 0
-			crc <<= 1
-			if bit {
-				crc ^= poly
-			}
-		}
-		ISO_IEC_13239_data[n] = crc
-	}
-}
-
 const OPTIONAL = "O"
 const CONDITIONALLY = "C"
 const MANDATORY = "M"
 
-type Object struct {
+// ObjectDef is the definition of đối-tượng-dữ-liệu
+type ObjectDef struct {
 	Name     string
 	ID       string // 2 character
 	Len      int
 	MaxLen   int    // only used when Len is 0
 	Required string // O C M
 
-	Sub []Object
+	Sub []ObjectDef
 }
 
-var MerchantAccount = []Object{
+var MerchantAccount = []ObjectDef{
 	{"Định danh duy nhất toàn cầu GUID ", "00", 0, 32, MANDATORY, nil}, // A000000727.
 	{"Tổ chức thụ hưởng (NHTV, TGTT)      ", "01", 0, 1000, MANDATORY, MerchantAccountBeneficiaryOrganization},
 
@@ -109,12 +93,12 @@ var MerchantAccount = []Object{
 	{"Mã dịch vụ                       ", "02", 0, 10, CONDITIONALLY, nil},
 }
 
-var MerchantAccountBeneficiaryOrganization = []Object{
+var MerchantAccountBeneficiaryOrganization = []ObjectDef{
 	{"Acquier ID/BNB ID                ", "00", 6, 0, MANDATORY, nil},
 	{"Merchant ID/Consumer ID          ", "01", 0, 19, MANDATORY, nil},
 }
 
-var AdditionalDataFieldTemplate = []Object{
+var AdditionalDataFieldTemplate = []ObjectDef{
 	// Số hóa đơn/biên lai cung cấp bởi Merchant hoặc do KH tự nhập vào app.
 	{"Bill Number                      ", "01", 0, 25, OPTIONAL, nil},
 
@@ -137,7 +121,7 @@ var AdditionalDataFieldTemplate = []Object{
 	{"Payment System specific templates", "50", 0, 25, OPTIONAL, nil},
 }
 
-var Defaults = []Object{
+var Defaults = []ObjectDef{
 	{"Payload Format Indicator         ", "00", 2, 0, MANDATORY, nil},
 	{"Point of Initiation Method       ", "01", 2, 0, MANDATORY, nil},
 	{"Merchant Account Information     ", "38", 0, 99, MANDATORY, MerchantAccount}, //A000000727.
@@ -156,7 +140,8 @@ var Defaults = []Object{
 	// {"CRC                              ", "63",  4, 0, MANDATORY, nil},
 }
 
-var countryCodeM = map[string]string{
+// CountryCodeM: lists of all countries in the VietQR spec
+var CountryCodeM = map[string]string{
 	"JP": "Japan",
 	"KR": "Korea",
 	"MY": "Malaysia",
@@ -168,7 +153,8 @@ var countryCodeM = map[string]string{
 	"VN": "Viet Nam",
 }
 
-var currencyM = map[string]string{
+// CountryCodeM: lists of all currencies in the VietQR spec
+var CurrencyM = map[string]string{
 	"JPY": "392", // Yên Japan
 	"KRW": "410", // Won Korea
 	"MYR": "458", // Ringgit Malaysia
@@ -199,12 +185,12 @@ func GenerateWithParams(onetime bool, servicetype string, amount float64, bankBI
 	contents["380100"] = bankBIN       // "970468"        // bnb id
 	contents["380101"] = accountnumber // "0011009950446" // Consumer id
 	contents["3802"] = servicetype
-	currencyCode := currencyM[currency]
+	currencyCode := CurrencyM[currency]
 	if currencyCode != "" {
 		contents["53"] = currencyCode
 	}
 
-	if _, has := countryCodeM[countryCode]; has {
+	if _, has := CountryCodeM[countryCode]; has {
 		contents["58"] = countryCode
 	}
 	if math.IsNaN(amount) {
@@ -230,8 +216,8 @@ func GenerateWithParams(onetime bool, servicetype string, amount float64, bankBI
 	return out + CrcChecksum(out)
 }
 
-func generateObject(defs []Object, prefixid, id string, contents map[string]string) string {
-	var def Object
+func generateObject(defs []ObjectDef, prefixid, id string, contents map[string]string) string {
+	var def ObjectDef
 	for _, d := range defs {
 		if id == d.ID {
 			def = d
@@ -239,7 +225,7 @@ func generateObject(defs []Object, prefixid, id string, contents map[string]stri
 		}
 	}
 	if len(defs) == 0 {
-		def = Object{ID: "--", Sub: Defaults}
+		def = ObjectDef{ID: "--", Sub: Defaults}
 	}
 
 	if def.ID == "" {
@@ -261,7 +247,7 @@ func generateObject(defs []Object, prefixid, id string, contents map[string]stri
 		return ""
 	}
 
-	content := ascii(contents[prefixid+id])
+	content := Ascii(contents[prefixid+id])
 	if content == "" {
 		return ""
 	}
@@ -278,11 +264,26 @@ func generateObject(defs []Object, prefixid, id string, contents map[string]stri
 	return fmt.Sprintf("%s%02d%s", id, length, content)
 }
 
-func init() {
-	initCrcTable(CRC_POLY)
+var ISO_IEC_13239_data [256]uint16
+
+const CRC_INIT uint16 = 0xFFFF
+const CRC_POLY uint16 = 0x1021
+
+func initCrcTable(poly uint16) {
+	for n := uint16(0); n < 256; n++ {
+		crc := n << 8
+		for i := 0; i < 8; i++ {
+			bit := (crc & 0x8000) != 0
+			crc <<= 1
+			if bit {
+				crc ^= poly
+			}
+		}
+		ISO_IEC_13239_data[n] = crc
+	}
 }
 
-// Checksum returns CRC checksum of data using scpecified algorithm represented by the Table.
+// CrcChecksum computes ISO/IEC 13239 CRC checksum of the input string
 func CrcChecksum(str string) string {
 	data := []byte(str)
 	crc := CRC_INIT
@@ -293,6 +294,8 @@ func CrcChecksum(str string) string {
 	return fmt.Sprintf("%X", crc)
 }
 
+// Substring cuts string by `end` runes
+// It returns (max) first `end` runes of the input string
 func Substring(s string, end int) string {
 	if s == "" {
 		return ""
@@ -313,11 +316,11 @@ func Substring(s string, end int) string {
 	return s[start_str_idx:]
 }
 
-// Convert replaces all non-ascii characters to equivalent ascii characters
+// Ascii replaces all non-ascii characters to equivalent ascii characters
 // e.g: â => a, đ => d, ...
 // To ensure the output string is pure ascii, this function remove all
 // characters that does not have equivalent ascii character, for example: 主
-func ascii(text string) string {
+func Ascii(text string) string {
 	return strings.Map(func(r rune) rune {
 		if r <= unicode.MaxASCII {
 			return r
@@ -333,9 +336,14 @@ func ascii(text string) string {
 	}, text)
 }
 
-// Sinh mã VietQR tới STK
-// Generate(180000, "970423", "00134234", "ghi chu")
+// Generate converts a typical bank transfer information to VietQR code
+// Example: Generate(180000, "970423", "00134234", "ghi chu")
 // Xem bank.csv để tra mã BIN của ngân hàng
 func Generate(amount float64, bankBIN string, accountnumber, note string) string {
 	return GenerateWithParams(true, "QRIBFTTA", amount, bankBIN, accountnumber, note, "VND", "VN")
+}
+
+func init() {
+	loadBanks()
+	initCrcTable(CRC_POLY)
 }

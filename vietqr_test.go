@@ -7,6 +7,53 @@ import (
 	"github.com/subiz/vietqr"
 )
 
+func TestCrc32(t *testing.T) {
+	testcases := []struct {
+		in     string
+		expect string
+	}{
+		{"00", "2EC9"},
+		{"01", "3EE8"},
+		{"00020101021138600010A00000072701300006970403011697040311012345670208QRIBFTTC53037045802VN6304", "4F52"},
+		{"00020101021238570010A00000072701270006970403011300110123456780208QRIBFTTA530370454061800005802VN62340107NPS68690819thanh toan don hang6304", "2E2E"},
+		{"00020101021238600010A00000072701300006970403011697040311012345670208QRIBFTTC530370454061800005802VN62340107NPS68690819thanh toan don hang6304", "A203"},
+		{"00020101021138540010A00000072701240006970423011000999999990208QRIBFTTA53037045802VN6304", "CBB4"},
+	}
+
+	for _, tc := range testcases {
+		out := vietqr.CrcChecksum(tc.in)
+		if out != tc.expect {
+			t.Errorf("SHOULD EQ IN [%s], out [%s], expect [%s]", tc.in, out, tc.expect)
+		}
+	}
+}
+
+func TestConvertASCII(t *testing.T) {
+	testcases := []struct {
+		in     string
+		expect string
+	}{
+		{"ậậậậ", "aaaa"},
+		{"Bằng Minh Tuấn", "Bang Minh Tuan"},
+		{"ß", ""},
+		{"한글", ""},
+		{"æ", ""},
+		{"イーブイ", ""},
+		{"Cộng hòa xã hội chủ nghĩa Việt Nam. Độc lập tự do - hạnh phúc", "Cong hoa xa hoi chu nghia Viet Nam. Doc lap tu do - hanh phuc"},
+		{"République socialiste du Vietnam. Indépendance et liberté - bonheur", "Republique socialiste du Vietnam. Independance et liberte - bonheur"},
+		{"Vietnam Sosyalist Cumhuriyeti. Bağımsızlık ve özgürlük - mutluluk", "Vietnam Sosyalist Cumhuriyeti. Bamszlk ve zgrlk - mutluluk"},
+		{"Социјалистичке Републике Вијетнам. Независност и слобода - срећа", "  .    - "},
+		{"越南社会主义共和国。独立与自由——幸福", ""},
+	}
+
+	for _, tc := range testcases {
+		out := vietqr.Ascii(tc.in)
+		if out != tc.expect {
+			t.Errorf("expect \"%s\", got \"%s\"", tc.expect, out)
+		}
+	}
+}
+
 func TestQR(t *testing.T) {
 	testcases := []struct {
 		onetime       bool

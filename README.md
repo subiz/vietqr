@@ -180,8 +180,6 @@ Cuối cùng ta được
 1. Tra cứu mã BIN
 https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht?_afrLoop=1982850809377774#%40%3F_afrLoop%3D1982850809377774%26centerWidth%3D80%2525%26leftWidth%3D20%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3Dlhbcl1mxr_4
 
-### Website VietQR
-
 ```
 STT , Mã BIN , Code       , Tên viết tắt      , Tên Tổ chức phát hành thẻ
  1  , 970400 , SGICB      , SaigonBank        , TMCP Sài Gòn Công thương
@@ -241,6 +239,8 @@ STT , Mã BIN , Code       , Tên viết tắt      , Tên Tổ chức phát hà
 55  , 970468 , MAFC       , MAFC              , Công ty Tài chính TNHH MTV Mirae Asset (Việt Nam)
 56  , 970470 , MCredit    , MCredit           , Công ty Tài chính TNHH MB SHINSEI
 ```
+
+### Website của VietQR
 
 Tôi chỉ thấy Napas đề cập tới webiste VietQR và trang web của nó là `vietqr.net`. Nhưng khi search `vietqr` trên Google các kết quả top đầu thường là:
 ```
