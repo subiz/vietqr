@@ -252,5 +252,14 @@ vietqr.co
 
 Tôi không biết các đơn vị này có thuộc Napas hay không, tôi đã thử tìm kiếm kỹ và không tìm được link nào của Napas đề cập tới những website trên cả. Tôi cho rằng 99% đây là những đơn vị cá nhân độc lập. Tôi viết để cảnh báo bạn hãy thận trọng khi đọc những thông tin từ họ, đừng nhầm tưởng họ là đại diện của Napas.
 
+## Phát triển
+### Duy trì bank.csv
+File bank.csv chứa thông tin của toàn bộ ngân hàng được cấp mã BIN ở Việt Nam (theo website của Ngân Hàng Nhà Nước Việt Nam), khi file này được cập nhật cần chạy lệnh sau để generate lại file `bank_generated.go`
+
+```sh
+$ go run ./cmd/bank.go
+```
+Khi thay đổi `./bank.csv`
+
 ## License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 MIT

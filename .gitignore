@@ -25,4 +25,5 @@ _testmain.go
 
 vendor/
 
+/cmd/cmd
 .idea

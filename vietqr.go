@@ -2,10 +2,8 @@
 package vietqr
 
 import (
-	"encoding/csv"
 	"fmt"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 	"unicode"
@@ -38,37 +36,6 @@ type Bank struct {
 	ShortName string
 	Code      string
 	SWIFTCode string
-}
-
-// VNBankM maps BIN to Bank information
-var VNBankM = map[string]Bank{}
-
-// loadBanks reads all banks in ./bank.csv and store in VNBankM map
-func loadBanks() {
-	bankFile, err := os.Open("./bank.csv")
-	if err != nil {
-		panic(err)
-	}
-	defer bankFile.Close()
-
-	csvReader := csv.NewReader(bankFile)
-	records, err := csvReader.ReadAll()
-	if err != nil {
-		panic(err)
-	}
-
-	for i, record := range records {
-		if i == 0 { // skip header
-			continue
-		}
-		VNBankM[strings.TrimSpace(record[1])] = Bank{
-			BIN:       strings.TrimSpace(record[1]),
-			Name:      strings.TrimSpace(record[5]),
-			ShortName: strings.TrimSpace(record[3]),
-			Code:      strings.TrimSpace(record[2]),
-			SWIFTCode: strings.TrimSpace(record[4]),
-		}
-	}
 }
 
 const OPTIONAL = "O"
@@ -346,6 +313,5 @@ func Generate(amount float64, bankBIN string, accountnumber, note string) string
 }
 
 func init() {
-	loadBanks()
 	initCrcTable(CRC_POLY)
 }
