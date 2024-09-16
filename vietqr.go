@@ -1,7 +1,6 @@
 package vietqr
 
 import (
-	_ "errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -122,7 +121,7 @@ var Defaults = []Object{
 //
 //	"QRIBFTTC": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến thẻ
 //	"QRIBFTTA": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến tài khoản
-func Generate(onetime bool, servicetype string, amount int, bankBIN string, accountnumber, note string) (string, error) {
+func GenerateWithParams(onetime bool, servicetype string, amount int, bankBIN string, accountnumber, note string) string {
 	contents := map[string]string{}
 	contents["00"] = "01"
 
@@ -150,7 +149,7 @@ func Generate(onetime bool, servicetype string, amount int, bankBIN string, acco
 
 	// generate qr code
 	out := generateObject(nil, "", "", contents) + "6304" // ID for crc
-	return out + CrcChecksum(out), nil
+	return out + CrcChecksum(out)
 }
 
 func generateObject(defs []Object, prefixid, id string, contents map[string]string) string {
@@ -254,4 +253,11 @@ func ascii(text string) string {
 		// remove all non-ascii
 		return -1
 	}, text)
+}
+
+// Sinh mã VietQR tới STK
+// Generate(180000, "970423", "00134234", "ghi chu")
+// Xem bank.csv để tra mã BIN của ngân hàng
+func Generate(amount int, bankBIN string, accountnumber, note string) string {
+	return GenerateWithParams(true, "QRIBFTTA", amount, bankBIN, accountnumber, note)
 }

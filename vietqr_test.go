@@ -1,7 +1,10 @@
-package vietqr
+package vietqr_test
 
 import (
+	"fmt"
 	"testing"
+
+	"github.com/subiz/vietqr"
 )
 
 func TestQR(t *testing.T) {
@@ -37,9 +40,15 @@ func TestQR(t *testing.T) {
 	}
 
 	for i, tc := range testcases {
-		out, _ := Generate(tc.onetime, tc.servicetype, tc.amount, tc.bankBIN, tc.accountnumber, tc.note)
+		out := vietqr.GenerateWithParams(tc.onetime, tc.servicetype, tc.amount, tc.bankBIN, tc.accountnumber, tc.note)
 		if out != tc.expect {
 			t.Errorf("SHOULD EQ IN [%d], out [%s], expect [%s]", i, out, tc.expect)
 		}
 	}
+}
+
+func ExampleString() {
+	code := vietqr.Generate(120000, "970415", "0011001932418", "ủng hộ lũ lụt")
+	fmt.Println(code)
+	// Output: olleh
 }
