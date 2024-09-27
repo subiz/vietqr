@@ -31,11 +31,11 @@ var VNMAP = map[rune]rune{
 }
 
 type Bank struct {
-	BIN       string
-	Name      string
-	ShortName string
-	Code      string
-	SWIFTCode string
+	BIN       string `json:"bin"`
+	Name      string `json:"name"`
+	ShortName string `json:"short_name"`
+	Code      string `json:"code"`
+	SWIFTCode string `json:"swift_code"`
 }
 
 const OPTIONAL = "O"

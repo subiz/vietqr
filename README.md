@@ -178,9 +178,8 @@ Cuối cùng ta được
 ### Thông tin chiếu
 
 1. Tra cứu mã BIN
-https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht?_afrLoop=1982850809377774#%40%3F_afrLoop%3D1982850809377774%26centerWidth%3D80%2525%26leftWidth%3D20%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3Dlhbcl1mxr_4
 
-Khong co HSBC, Cake?
+Note: Không có HSBC, Cake?
 ```
 STT, Mã BIN , Code       , Tên viết tắt      , SWIFT Code, Tên Tổ chức phát hành thẻ
  1 , 970400 , SGICB      , SaigonBank        , SBITVNVX  , TMCP Sài Gòn Công thương
@@ -254,12 +253,11 @@ Tôi không biết các đơn vị này có thuộc Napas hay không, tôi đã 
 
 ## Phát triển
 ### Duy trì bank.csv
-File bank.csv chứa thông tin của toàn bộ ngân hàng được cấp mã BIN ở Việt Nam (theo website của Ngân Hàng Nhà Nước Việt Nam), khi file này được cập nhật cần chạy lệnh sau để generate lại file `bank_generated.go`
+File bank.csv chứa danh sách đầy đủ ngân hàng được cấp mã BIN ở Việt Nam (theo [website của Ngân Hàng Nhà Nước Việt Nam](https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht?_afrLoop=1982850809377774#%40%3F_afrLoop%3D1982850809377774%26centerWidth%3D80%2525%26leftWidth%3D20%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3Dlhbcl1mxr_4)), khi file này được cập nhật, cần chạy lệnh sau để generate lại file `bank_generated.go`
 
 ```sh
 $ go run ./cmd/bank.go
 ```
-Khi thay đổi `./bank.csv`
 
 ## License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 MIT
