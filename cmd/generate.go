@@ -34,16 +34,18 @@ var VNBankM = map[string]Bank{`
 
 		gen += fmt.Sprintf(`
 	"%s": Bank{
-		BIN: "%s",
-		Name: "%s",
-		ShortName: "%s",
-		Code: "%s",
-		SWIFTCode: "%s",
-	},`, strings.TrimSpace(record[1]), strings.TrimSpace(record[1]), strings.TrimSpace(record[5]), strings.TrimSpace(record[3]), strings.TrimSpace(record[2]), strings.TrimSpace(record[4]))
+		BIN:           "%s",
+		Name:          "%s",
+		ShortName:     "%s",
+		Code:          "%s",
+		SWIFTCode:     "%s",
+		AndroidBundle: "%s",
+	},`, strings.TrimSpace(record[1]), strings.TrimSpace(record[1]), strings.TrimSpace(record[6]), strings.TrimSpace(record[3]), strings.TrimSpace(record[2]), strings.TrimSpace(record[4]), strings.TrimSpace(record[5]))
 	}
 
 	gen += `
-}`
+}
+`
 	if err := os.WriteFile("./bank_generated.go", []byte(gen), 0600); err != nil {
 		panic(err)
 	}

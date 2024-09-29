@@ -175,7 +175,7 @@ Cuối cùng ta được
 0002010102113838000697042201120023457923440208QRIBFTTA530370454061800005802VN62160814ung ho bao lut6304E69F`
 ```
 
-### Thông tin chiếu
+### Thông tin tham chiếu
 
 1. Tra cứu mã BIN
 
@@ -256,7 +256,7 @@ Tôi không biết các đơn vị này có thuộc Napas hay không, tôi đã 
 File bank.csv chứa danh sách đầy đủ ngân hàng được cấp mã BIN ở Việt Nam (theo [website của Ngân Hàng Nhà Nước Việt Nam](https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht?_afrLoop=1982850809377774#%40%3F_afrLoop%3D1982850809377774%26centerWidth%3D80%2525%26leftWidth%3D20%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3Dlhbcl1mxr_4)), khi file này được cập nhật, cần chạy lệnh sau để generate lại file `bank_generated.go`
 
 ```sh
-$ go run ./cmd/bank.go
+$ go run ./cmd/generate.go
 ```
 
 ## License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

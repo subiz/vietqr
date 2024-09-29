@@ -36,6 +36,7 @@ type Bank struct {
 	ShortName string `json:"short_name"`
 	Code      string `json:"code"`
 	SWIFTCode string `json:"swift_code"`
+	AndroidBundle string `json:"android_bundle"`
 }
 
 const OPTIONAL = "O"
