@@ -283,5 +283,21 @@ không tải hoặc phân tích được dữ liệu MoMo:
 $ go run ./cmd/generate.go
 ```
 
+### Tải logo ngân hàng từ MoMo
+
+API bank codes của MoMo trả về URL logo trong trường `bankLogoUrl`. Lệnh sau tải toàn
+bộ logo vào `image/banks` và tạo `image/banks/index.json` để ánh xạ tên file với bank
+code, BIN, tên ngân hàng và URL nguồn:
+
+```sh
+$ go run ./cmd/download-logos
+```
+
+Có thể đổi thư mục đích hoặc chỉ tải các mục được MoMo đánh dấu hỗ trợ VietQR:
+
+```sh
+$ go run ./cmd/download-logos -output /tmp/bank-logos -vietqr-only
+```
+
 ## License [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 MIT

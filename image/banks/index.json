@@ -1,0 +1,545 @@
+{
+  "source": "https://payment.momo.vn/v2/gateway/api/bankcodes",
+  "logos": [
+    {
+      "code": "ABB",
+      "bin": "970425",
+      "name": "Ngân hàng TMCP An Bình",
+      "shortName": "ABBANK",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/ABB.png",
+      "file": "ABB.png"
+    },
+    {
+      "code": "ACB",
+      "bin": "970416",
+      "name": "Ngân hàng TMCP Á Châu",
+      "shortName": "ACB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/ACB.png",
+      "file": "ACB.png"
+    },
+    {
+      "code": "BIDV",
+      "bin": "970418",
+      "name": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+      "shortName": "BIDV",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/BIDV.png",
+      "file": "BIDV.png"
+    },
+    {
+      "code": "BVB",
+      "bin": "970438",
+      "name": "Ngân hàng TMCP Bảo Việt",
+      "shortName": "BaoVietBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/BVB.png",
+      "file": "BVB.png"
+    },
+    {
+      "code": "CAKE",
+      "bin": "546034",
+      "name": "TMCP Việt Nam Thịnh Vượng - Ngân hàng số CAKE by VPBank",
+      "shortName": "CAKE",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_cake.png",
+      "file": "CAKE.png"
+    },
+    {
+      "code": "CBB",
+      "bin": "970444",
+      "name": "Ngân hàng Thương mại TNHH MTV Xây dựng Việt Nam",
+      "shortName": "CBBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_cbbank.png",
+      "file": "CBB.png"
+    },
+    {
+      "code": "CIMB",
+      "bin": "422589",
+      "name": "Ngân hàng TNHH MTV CIMB Việt Nam",
+      "shortName": "CIMB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_cimb.png",
+      "file": "CIMB.png"
+    },
+    {
+      "code": "COB",
+      "bin": "970446",
+      "name": "Ngân hàng Hợp tác xã Việt Nam",
+      "shortName": "COOPBANK",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_coop_bank.png",
+      "file": "COB.png"
+    },
+    {
+      "code": "CTG",
+      "bin": "970415",
+      "name": "Ngân hàng TMCP Công thương Việt Nam",
+      "shortName": "VietinBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/CTG.png",
+      "file": "CTG.png"
+    },
+    {
+      "code": "DBS",
+      "bin": "796500",
+      "name": "DBS Bank Ltd - Chi nhánh Thành phố Hồ Chí Minh",
+      "shortName": "DBSBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_dbs.png",
+      "file": "DBS.png"
+    },
+    {
+      "code": "EIB",
+      "bin": "970431",
+      "name": "Ngân hàng TMCP Xuất Nhập khẩu Việt Nam",
+      "shortName": "Eximbank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/EIB.png",
+      "file": "EIB.png"
+    },
+    {
+      "code": "GPB",
+      "bin": "970408",
+      "name": "Ngân hàng Thương mại TNHH MTV Dầu Khí Toàn Cầu",
+      "shortName": "GPBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/GPB.png",
+      "file": "GPB.png"
+    },
+    {
+      "code": "HDB",
+      "bin": "970437, 970420",
+      "name": "Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh",
+      "shortName": "HDBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/HDB.png",
+      "file": "HDB.png"
+    },
+    {
+      "code": "HLB",
+      "bin": "970442",
+      "name": "Ngân hàng TNHH MTV Hong Leong Việt Nam",
+      "shortName": "HongLeong",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_hong_leon_bank.png",
+      "file": "HLB.png"
+    },
+    {
+      "code": "HSBC",
+      "bin": "458761",
+      "name": "Ngân hàng TNHH MTV HSBC (Việt Nam)",
+      "shortName": "HSBC",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_hsbc.png",
+      "file": "HSBC.png"
+    },
+    {
+      "code": "IBKHCM",
+      "bin": "970456",
+      "name": "Ngân hàng Công nghiệp Hàn Quốc - Chi nhánh TP. Hồ Chí Minh",
+      "shortName": "IBKHCM",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/IBK.png",
+      "file": "IBKHCM.png"
+    },
+    {
+      "code": "IBKHN",
+      "bin": "970455",
+      "name": "Ngân hàng Công nghiệp Hàn Quốc - Chi nhánh Hà Nội",
+      "shortName": "IBKHN",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_ibk_bank.png",
+      "file": "IBKHN.png"
+    },
+    {
+      "code": "IVB",
+      "bin": "970434",
+      "name": "Ngân hàng TNHH Indovina",
+      "shortName": "IndovinaBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/IVB.png",
+      "file": "IVB.png"
+    },
+    {
+      "code": "KBHCM",
+      "bin": "970463",
+      "name": "Ngân hàng Kookmin - Chi nhánh Thành phố Hồ Chí Minh",
+      "shortName": "KookminHCM",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_kookmin_hcm.png",
+      "file": "KBHCM.png"
+    },
+    {
+      "code": "KBHN",
+      "bin": "970462",
+      "name": "Ngân hàng Kookmin - Chi nhánh Hà Nội",
+      "shortName": "KookminHN",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_kookmin_hn.png",
+      "file": "KBHN.png"
+    },
+    {
+      "code": "KBankHCM",
+      "bin": "668888",
+      "name": "Ngân hàng Đại chúng TNHH Kasikornbank",
+      "shortName": "KBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_kbank.png",
+      "file": "KBankHCM.png"
+    },
+    {
+      "code": "KEBHANAHCM",
+      "bin": "970466",
+      "name": "Ngân hàng KEB Hana – Chi nhánh Thành phố Hồ Chí Minh",
+      "shortName": "Keb Hana - HCM",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/KEBHANAHCM.png",
+      "file": "KEBHANAHCM.png"
+    },
+    {
+      "code": "KEBHANAHN",
+      "bin": "970467",
+      "name": "Ngân hàng KEB Hana – Chi nhánh Hà Nội",
+      "shortName": "Keb Hana- HN",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/KEBHANAHCM.png",
+      "file": "KEBHANAHN.png"
+    },
+    {
+      "code": "KLB",
+      "bin": "970452",
+      "name": "Ngân hàng TMCP Kiên Long",
+      "shortName": "KienLongBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/KLB.png",
+      "file": "KLB.png"
+    },
+    {
+      "code": "LPB",
+      "bin": "970449",
+      "name": "NH TMCP Loc Phat Viet Nam",
+      "shortName": "LPBank",
+      "isVietQr": true,
+      "sourceUrl": "https://static.momocdn.net/files/cGF5bWVudHNkaw==/image/LPB.png",
+      "file": "LPB.png"
+    },
+    {
+      "code": "MAFC",
+      "bin": "970468",
+      "name": "Công ty Tài chính TNHH MTV Mirae Asset (Việt Nam)",
+      "shortName": "MTV Mirae Asset",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/MAFC.png",
+      "file": "MAFC.png"
+    },
+    {
+      "code": "MB",
+      "bin": "970422",
+      "name": "Ngân hàng TMCP Quân đội",
+      "shortName": "MBBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/MB.png",
+      "file": "MB.png"
+    },
+    {
+      "code": "MBV",
+      "bin": "970414",
+      "name": "Ngân hàng TNHH MTV Việt Nam Hiện Đại",
+      "shortName": "MBV",
+      "isVietQr": true,
+      "sourceUrl": "https://static.momocdn.net/files/cGF5bWVudHNkaw==/image/MBV.png",
+      "file": "MBV.png"
+    },
+    {
+      "code": "MSB",
+      "bin": "970426",
+      "name": "Ngân hàng TMCP Hàng Hải",
+      "shortName": "MSB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/MSB.png",
+      "file": "MSB.png"
+    },
+    {
+      "code": "NAB",
+      "bin": "970428",
+      "name": "Ngân hàng TMCP Nam Á",
+      "shortName": "NamABank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/NAB.png",
+      "file": "NAB.png"
+    },
+    {
+      "code": "NASB",
+      "bin": "970409",
+      "name": "Ngân hàng TMCP Bắc Á",
+      "shortName": "BacABank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/NASB.png",
+      "file": "NASB.png"
+    },
+    {
+      "code": "NVB",
+      "bin": "970419",
+      "name": "Ngân hàng TMCP Quốc Dân",
+      "shortName": "NCB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/NVB.png",
+      "file": "NVB.png"
+    },
+    {
+      "code": "NonghyupBankHN",
+      "bin": "801011",
+      "name": "Ngân hàng Nonghyup - Chi nhánh Hà Nội",
+      "shortName": "Nonghyup",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_nonghyu.png",
+      "file": "NonghyupBankHN.png"
+    },
+    {
+      "code": "OCB",
+      "bin": "970448",
+      "name": "Ngân hàng TMCP Phương Đông",
+      "shortName": "OCB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/OCB.png",
+      "file": "OCB.png"
+    },
+    {
+      "code": "PBVN",
+      "bin": "970439",
+      "name": "Ngân hàng TNHH MTV Public Việt Nam",
+      "shortName": "PublicBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/PBVN.png",
+      "file": "PBVN.png"
+    },
+    {
+      "code": "PGB",
+      "bin": "970430",
+      "name": "Ngân hàng TMCP Xăng dầu Petrolimex",
+      "shortName": "PGBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/PGB.png",
+      "file": "PGB.png"
+    },
+    {
+      "code": "PVCB",
+      "bin": "970412",
+      "name": "Ngân hàng TMCP Đại Chúng Việt Nam",
+      "shortName": "PVcomBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/PVCB.png",
+      "file": "PVCB.png"
+    },
+    {
+      "code": "SCB",
+      "bin": "970429",
+      "name": "Ngân hàng TMCP Sài Gòn",
+      "shortName": "SCB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/SCB.png",
+      "file": "SCB.png"
+    },
+    {
+      "code": "SEAB",
+      "bin": "970440",
+      "name": "Ngân hàng TMCP Đông Nam Á",
+      "shortName": "SeABank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/Seab.png",
+      "file": "SEAB.png"
+    },
+    {
+      "code": "SGB",
+      "bin": "970400",
+      "name": "Ngân hàng TMCP Sài Gòn Công Thương",
+      "shortName": "SaigonBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/SGB.png",
+      "file": "SGB.png"
+    },
+    {
+      "code": "SHB",
+      "bin": "970443",
+      "name": "Ngân hàng TMCP Sài Gòn - Hà Nội",
+      "shortName": "SHB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/SHB.png",
+      "file": "SHB.png"
+    },
+    {
+      "code": "STANDARD",
+      "bin": "970410",
+      "name": "Ngân hàng TNHH MTV Standard Chartered Bank Việt Nam",
+      "shortName": "StandardChartered",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_standard_chartered.png",
+      "file": "STANDARD.png"
+    },
+    {
+      "code": "STB",
+      "bin": "970403",
+      "name": "Ngân hàng TMCP Sài Gòn Thương Tín",
+      "shortName": "Sacombank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/STB.png",
+      "file": "STB.png"
+    },
+    {
+      "code": "SVB",
+      "bin": "970424",
+      "name": "Ngân hàng TNHH MTV Shinhan Việt Nam",
+      "shortName": "ShinhanBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/SVB.png",
+      "file": "SVB.png"
+    },
+    {
+      "code": "TCB",
+      "bin": "970407",
+      "name": "Ngân hàng TMCP Kỹ thương Việt Nam",
+      "shortName": "Techcombank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/TCB.png",
+      "file": "TCB.png"
+    },
+    {
+      "code": "TIMO",
+      "bin": "963388",
+      "name": "Ngân hàng số Timo by Ban Viet Bank (Timo by Ban Viet Bank)",
+      "shortName": "Timo",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/TIMO.png",
+      "file": "TIMO.png"
+    },
+    {
+      "code": "TPB",
+      "bin": "970423",
+      "name": "Ngân hàng TMCP Tiên Phong",
+      "shortName": "TPBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/TPB.png",
+      "file": "TPB.png"
+    },
+    {
+      "code": "UOB",
+      "bin": "970458",
+      "name": "Ngân hàng United Overseas - Chi nhánh TP. Hồ Chí Minh",
+      "shortName": "UnitedOverseas",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/UOB.png",
+      "file": "UOB.png"
+    },
+    {
+      "code": "Ubank",
+      "bin": "546035",
+      "name": "TMCP Việt Nam Thịnh Vượng - Ngân hàng số Ubank by VPBank",
+      "shortName": "Ubank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.io/momo_app_v2/new_version/All_team_/new_logo_bank/ic_ubank.png",
+      "file": "Ubank.png"
+    },
+    {
+      "code": "VAB",
+      "bin": "970427",
+      "name": "Ngân hàng TMCP Việt Á",
+      "shortName": "VietABank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VAB.png",
+      "file": "VAB.png"
+    },
+    {
+      "code": "VARB",
+      "bin": "970405",
+      "name": "Ngân hàng Nông nghiệp và Phát triển Nông thôn Việt Nam",
+      "shortName": "Agribank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VARB.png",
+      "file": "VARB.png"
+    },
+    {
+      "code": "VB",
+      "bin": "970433",
+      "name": "Ngân hàng TMCP Việt Nam Thương Tín",
+      "shortName": "VietBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VB.png",
+      "file": "VB.png"
+    },
+    {
+      "code": "VCB",
+      "bin": "970436",
+      "name": "Ngân hàng TMCP Ngoại Thương Việt Nam",
+      "shortName": "VietcomBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VCB.png",
+      "file": "VCB.png"
+    },
+    {
+      "code": "VCCB",
+      "bin": "970454",
+      "name": "Ngân hàng TMCP Bản Việt",
+      "shortName": "VietCapitalBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VCCB.png",
+      "file": "VCCB.png"
+    },
+    {
+      "code": "VIB",
+      "bin": "970441",
+      "name": "Ngân hàng TMCP Quốc tế Việt Nam",
+      "shortName": "VIB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VIB.png",
+      "file": "VIB.png"
+    },
+    {
+      "code": "VNPTMONEY",
+      "bin": "971011",
+      "name": "VNPT Money",
+      "shortName": "VNPTMoney",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/VNPTMONEY.png",
+      "file": "VNPTMONEY.png"
+    },
+    {
+      "code": "VPB",
+      "bin": "970432",
+      "name": "Ngân hàng TMCP Việt Nam Thịnh Vượng",
+      "shortName": "VPBank",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VPB.png",
+      "file": "VPB.png"
+    },
+    {
+      "code": "VRB",
+      "bin": "970421",
+      "name": "Ngân hàng Liên doanh Việt - Nga",
+      "shortName": "VRB",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/VRB.png",
+      "file": "VRB.png"
+    },
+    {
+      "code": "VTLMONEY",
+      "bin": "971005",
+      "name": "Viettel Money",
+      "shortName": "ViettelMoney",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/app/img/payment/VIETTELMONEY.png",
+      "file": "VTLMONEY.png"
+    },
+    {
+      "code": "WOO",
+      "bin": "970457",
+      "name": "Ngân hàng TNHH MTV Woori Việt Nam",
+      "shortName": "Woori",
+      "isVietQr": true,
+      "sourceUrl": "https://img.mservice.com.vn/momo_app_v2/img/WOO.png",
+      "file": "WOO.png"
+    }
+  ]
+}
