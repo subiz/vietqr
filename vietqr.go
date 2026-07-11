@@ -31,11 +31,11 @@ var VNMAP = map[rune]rune{
 }
 
 type Bank struct {
-	BIN       string `json:"bin"`
-	Name      string `json:"name"`
-	ShortName string `json:"short_name"`
-	Code      string `json:"code"`
-	SWIFTCode string `json:"swift_code"`
+	BIN           string `json:"bin"`
+	Name          string `json:"name"`
+	ShortName     string `json:"short_name"`
+	Code          string `json:"code"`
+	SWIFTCode     string `json:"swift_code"`
 	AndroidBundle string `json:"android_bundle"`
 }
 
@@ -104,7 +104,7 @@ var Defaults = []ObjectDef{
 	{"Country Code                     ", "58", 2, 0, MANDATORY, nil},
 	{"Merchant Name                    ", "59", 0, 25, OPTIONAL, nil},
 	{"Merchant City                    ", "60", 0, 15, OPTIONAL, nil},
-	{"Postal Code                      ", "51", 0, 10, OPTIONAL, nil},
+	{"Postal Code                      ", "61", 0, 10, OPTIONAL, nil},
 	{"Additional Data Field Template   ", "62", 0, 99, CONDITIONALLY, AdditionalDataFieldTemplate},
 	{"Merchant Information             ", "64", 0, 99, OPTIONAL, nil},
 	// {"CRC                              ", "63",  4, 0, MANDATORY, nil},
@@ -136,10 +136,25 @@ var CurrencyM = map[string]string{
 	"VND": "704", // Viet Nam
 }
 
-// servicetype:
+var currencyExponentM = map[string]int{
+	"JPY": 0,
+	"KRW": 0,
+	"MYR": 2,
+	"CNY": 2,
+	"IDR": 2,
+	"PHP": 2,
+	"SGD": 2,
+	"THB": 2,
+	"VND": 0,
+}
+
+// GenerateWithParams generates a VietQR payload with explicit parameters.
 //
-//	"QRIBFTTC": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến thẻ
-//	"QRIBFTTA": dịch vụ chuyển tiền nhanh 24/7 bằng QR đến tài khoản
+// servicetype must be "QRIBFTTC" for card transfers or "QRIBFTTA" for
+// account transfers. This function does not validate mandatory fields or fixed
+// field formats. Values longer than the VietQR limits are silently truncated;
+// in particular, accountnumber is limited to 19 characters and note to 25.
+// Callers must validate inputs before calling this function.
 func GenerateWithParams(onetime bool, servicetype string, amount float64, bankBIN string, accountnumber, note, currency, countryCode string) string {
 	contents := map[string]string{}
 	contents["00"] = "01"
@@ -160,30 +175,41 @@ func GenerateWithParams(onetime bool, servicetype string, amount float64, bankBI
 		contents["53"] = currencyCode
 	}
 
-	if _, has := CountryCodeM[countryCode]; has {
-		contents["58"] = countryCode
+	if _, has := CountryCodeM[countryCode]; !has {
+		countryCode = "VN"
 	}
-	if math.IsNaN(amount) {
-		amount = 0
-	}
-	if amount > 0 {
-		if currencyCode == "704" { // vnd khong co phan thap phan
-			contents["54"] = strconv.Itoa(int(amount))
-		} else {
-			// todo: bo xung phan thap phan
-			contents["54"] = strconv.Itoa(int(amount))
-		}
+	contents["58"] = countryCode
+
+	if transactionAmount := formatAmount(amount, currency); transactionAmount != "" {
+		contents["54"] = transactionAmount
 	}
 
 	note = strings.TrimSpace(note)
 	if note != "" {
 		contents["6208"] = note
 	}
-	contents["58"] = "VN" // JP KR MY RC RI RP SG TH
-
 	// generate qr code
 	out := generateObject(nil, "", "", contents) + "6304" // ID for crc
 	return out + CrcChecksum(out)
+}
+
+func formatAmount(amount float64, currency string) string {
+	exponent, supported := currencyExponentM[currency]
+	if !supported || amount <= 0 || math.IsNaN(amount) || math.IsInf(amount, 0) {
+		return ""
+	}
+
+	factor := math.Pow10(exponent)
+	rounded := math.Round(amount*factor) / factor
+	if rounded <= 0 || math.IsInf(rounded, 0) {
+		return ""
+	}
+
+	formatted := strconv.FormatFloat(rounded, 'f', exponent, 64)
+	if len(formatted) > 13 {
+		return ""
+	}
+	return formatted
 }
 
 func generateObject(defs []ObjectDef, prefixid, id string, contents map[string]string) string {
@@ -224,6 +250,8 @@ func generateObject(defs []ObjectDef, prefixid, id string, contents map[string]s
 	var length = len(content)
 	if def.MaxLen > 0 {
 		if len(content) > def.MaxLen {
+			// GenerateWithParams keeps its historical string-only API. Callers are
+			// responsible for validation; overlong values are truncated here.
 			length = def.MaxLen
 		}
 	}

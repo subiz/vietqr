@@ -26,6 +26,23 @@ func main() {
   // 00020101021238570010A00000072701270006970415011300110019324180208QRIBFTTA530370454061200005802VN62170813ung ho lu lut6304C15C
 }
 ```
+
+### Lưu ý về dữ liệu đầu vào
+
+`GenerateWithParams` giữ API đơn giản và chỉ trả về chuỗi, không trả về lỗi. Hàm không
+kiểm tra các trường bắt buộc hoặc định dạng cố định theo spec. Caller cần tự đảm bảo BIN
+có đúng 6 chữ số, số tài khoản không rỗng, mã dịch vụ là `QRIBFTTA`/`QRIBFTTC`, cùng
+các ràng buộc nghiệp vụ liên quan.
+
+Số tài khoản dài hơn 19 ký tự và nội dung chuyển khoản dài hơn 25 ký tự sẽ bị cắt im
+lặng theo giới hạn VietQR. Cần kiểm tra độ dài trước khi gọi hàm để tránh thay đổi số tài
+khoản hoặc nội dung giao dịch.
+
+Số tiền được làm tròn theo số lẻ ISO 4217 của tiền tệ: JPY, KRW và VND dùng 0 chữ số;
+MYR, CNY, IDR, PHP, SGD và THB dùng 2 chữ số. Trường số tiền sẽ được bỏ khỏi QR nếu
+giá trị không dương, không hữu hạn, làm tròn thành 0 hoặc dài hơn giới hạn 13 ký tự.
+`countryCode` hợp lệ được giữ nguyên; giá trị trống hoặc không hỗ trợ mặc định là `VN`.
+
 ### Mô tả cách sinh mã
 
 VietQR là tiêu chuẩn QR thanh toán được phát hành bởi Napas và các ngân hàng thành viên. Website chính thức của VietQR là [vietqr.net](https://vietqr.net). Bạn có thể tìm thấy tài liệu mô tả chi tiết về tiêu chuẩn VietQR ở đó. Tôi cũng đã lưu trữ lại bản gốc trong thư mục `/spec`. Tài liệu gốc có thể sẽ hơi khó hiểu nên tôi tóm tắt lại ý chính giúp bạn dễ tiêu hóa hơn.

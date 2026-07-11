@@ -2,6 +2,9 @@ package vietqr_test
 
 import (
 	"fmt"
+	"math"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/subiz/vietqr"
@@ -95,6 +98,92 @@ func TestQR(t *testing.T) {
 			t.Errorf("SHOULD EQ IN [%d], out [%s], expect [%s]", i, out, tc.expect)
 		}
 	}
+}
+
+func TestGenerateWithParamsFormatsAmountAndCountry(t *testing.T) {
+	testcases := []struct {
+		currency      string
+		amount        float64
+		country       string
+		expectAmount  string
+		expectCountry string
+	}{
+		{"VND", 1700000, "VN", "1700000", "VN"},
+		{"JPY", 123.6, "JP", "124", "JP"},
+		{"KRW", 123.4, "KR", "123", "KR"},
+		{"MYR", 123.4, "MY", "123.40", "MY"},
+		{"CNY", 123.456, "RC", "123.46", "RC"},
+		{"IDR", 123.4, "RI", "123.40", "RI"},
+		{"PHP", 123.4, "RP", "123.40", "RP"},
+		{"SGD", 123.4, "SG", "123.40", "SG"},
+		{"THB", 123.4, "TH", "123.40", "TH"},
+		{"VND", 9999999999999, "VN", "9999999999999", "VN"},
+		{"MYR", 9999999999.99, "MY", "9999999999.99", "MY"},
+		{"VND", 1, "invalid", "1", "VN"},
+	}
+
+	for _, tc := range testcases {
+		t.Run(tc.currency+"_"+tc.country, func(t *testing.T) {
+			out := vietqr.GenerateWithParams(true, "QRIBFTTA", tc.amount, "970422", "0023457923442", "", tc.currency, tc.country)
+			if amount, found := rootTLVValue(out, "54"); !found || amount != tc.expectAmount {
+				t.Errorf("amount = %q, found = %v; want %q", amount, found, tc.expectAmount)
+			}
+			if country, found := rootTLVValue(out, "58"); !found || country != tc.expectCountry {
+				t.Errorf("country = %q, found = %v; want %q", country, found, tc.expectCountry)
+			}
+		})
+	}
+}
+
+func TestGenerateWithParamsOmitsInvalidAmount(t *testing.T) {
+	testcases := []struct {
+		name     string
+		currency string
+		amount   float64
+	}{
+		{"too long", "VND", 10000000000000},
+		{"rounds to zero", "MYR", 0.001},
+		{"not a number", "VND", math.NaN()},
+		{"infinity", "VND", math.Inf(1)},
+		{"unsupported currency", "USD", 10},
+	}
+
+	for _, tc := range testcases {
+		t.Run(tc.name, func(t *testing.T) {
+			out := vietqr.GenerateWithParams(true, "QRIBFTTA", tc.amount, "970422", "0023457923442", "", tc.currency, "VN")
+			if amount, found := rootTLVValue(out, "54"); found {
+				t.Errorf("unexpected amount %q", amount)
+			}
+		})
+	}
+}
+
+func TestPostalCodeDefinition(t *testing.T) {
+	for _, def := range vietqr.Defaults {
+		if strings.Contains(def.Name, "Postal Code") {
+			if def.ID != "61" {
+				t.Fatalf("Postal Code ID = %q, want 61", def.ID)
+			}
+			return
+		}
+	}
+	t.Fatal("Postal Code definition not found")
+}
+
+func rootTLVValue(payload, wantedID string) (string, bool) {
+	for offset := 0; offset+4 <= len(payload); {
+		id := payload[offset : offset+2]
+		length, err := strconv.Atoi(payload[offset+2 : offset+4])
+		if err != nil || offset+4+length > len(payload) {
+			return "", false
+		}
+		value := payload[offset+4 : offset+4+length]
+		if id == wantedID {
+			return value, true
+		}
+		offset += 4 + length
+	}
+	return "", false
 }
 
 func TestBank(t *testing.T) {
