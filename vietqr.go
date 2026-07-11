@@ -261,7 +261,7 @@ func CrcChecksum(str string) string {
 		crc = crc<<8 ^ ISO_IEC_13239_data[byte(crc>>8)^d]
 	}
 
-	return fmt.Sprintf("%X", crc)
+	return fmt.Sprintf("%04X", crc)
 }
 
 // Substring cuts string by `end` runes
