@@ -1,0 +1,6 @@
+This directory contains code derived from github.com/skip2/go-qrcode at
+commit da1b6568686e89143e94f980a98bc2dbd5537f13.
+
+Only the QR encoder implementation and its internal bitset and Reed-Solomon
+packages are included. Import paths were changed to point at this repository.
+The original MIT license is preserved in LICENSE.

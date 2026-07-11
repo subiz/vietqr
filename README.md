@@ -27,6 +27,30 @@ func main() {
 }
 ```
 
+### Sinh ảnh PNG VietQR
+
+Package có thể dựng ảnh PNG VietQR hoàn chỉnh kích thước 850x1100, gồm logo VietQR,
+QR code, logo NAPAS 247 và logo ngân hàng thụ hưởng:
+
+```go
+data, err := vietqr.GeneratePNG(
+  1700000,
+  "546034",
+  "0364821895",
+  "SM83 PHAM KIEU THANH",
+)
+if err != nil {
+  panic(err)
+}
+if err := os.WriteFile("cake-vietqr.png", data, 0644); err != nil {
+  panic(err)
+}
+```
+
+Nếu đã có sẵn payload VietQR, dùng `RenderPNG(payload, bankBIN)`. QR encoder và toàn
+bộ logo được đóng gói trong module; việc sinh ảnh chỉ dùng standard library và không cần
+kết nối mạng khi runtime.
+
 ### Lưu ý về dữ liệu đầu vào
 
 `GenerateWithParams` giữ API đơn giản và chỉ trả về chuỗi, không trả về lỗi. Hàm không
