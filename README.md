@@ -253,7 +253,14 @@ Tôi không biết các đơn vị này có thuộc Napas hay không, tôi đã 
 
 ## Phát triển
 ### Duy trì bank.csv
-File bank.csv chứa danh sách đầy đủ ngân hàng được cấp mã BIN ở Việt Nam (theo [website của Ngân Hàng Nhà Nước Việt Nam](https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht?_afrLoop=1982850809377774#%40%3F_afrLoop%3D1982850809377774%26centerWidth%3D80%2525%26leftWidth%3D20%2525%26rightWidth%3D0%2525%26showFooter%3Dfalse%26showHeader%3Dfalse%26_adf.ctrl-state%3Dlhbcl1mxr_4)), khi file này được cập nhật, cần chạy lệnh sau để generate lại file `bank_generated.go`
+File `bank.csv` chứa danh sách ngân hàng được quản lý trong repository. Khi generate,
+danh sách này được kết hợp với các ngân hàng hỗ trợ VietQR lấy từ API bank codes của
+MoMo (`GET https://payment.momo.vn/v2/gateway/api/bankcodes`). Dữ liệu trong
+`bank.csv` luôn được ưu tiên; API chỉ bổ sung các BIN chưa có và
+không ghi đè tên, mã, SWIFT code hoặc Android bundle hiện tại.
+
+Lệnh generate cần kết nối mạng và sẽ dừng mà không thay đổi `bank_generated.go` nếu
+không tải hoặc phân tích được dữ liệu MoMo:
 
 ```sh
 $ go run ./cmd/generate.go

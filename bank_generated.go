@@ -1,9 +1,10 @@
 // CAUTION: THIS IS GENERATED CODE, DO NOT EDIT
-// The data is taken from ./bank.csv
-// To regenerated this file: in this directory, run this command "go run ./cmd/bank.go"
+// Local data from ./bank.csv is authoritative. Missing VietQR BINs are added
+// from https://payment.momo.vn/v2/gateway/api/bankcodes.
+// To regenerate this file, run "go run ./cmd/generate.go" from the repository root.
 package vietqr
 
-// VNBankM maps BIN to Bank information
+// VNBankM maps BIN to Bank information.
 var VNBankM = map[string]Bank{
 	"970400": Bank{
 		BIN:           "970400",
@@ -450,6 +451,94 @@ var VNBankM = map[string]Bank{
 		Name:          "Công ty Tài chính TNHH MB SHINSEI",
 		ShortName:     "MCredit",
 		Code:          "MCredit",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"546034": Bank{
+		BIN:           "546034",
+		Name:          "TMCP Việt Nam Thịnh Vượng - Ngân hàng số CAKE by VPBank",
+		ShortName:     "CAKE",
+		Code:          "CAKE",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"422589": Bank{
+		BIN:           "422589",
+		Name:          "Ngân hàng TNHH MTV CIMB Việt Nam",
+		ShortName:     "CIMB",
+		Code:          "CIMB",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"796500": Bank{
+		BIN:           "796500",
+		Name:          "DBS Bank Ltd - Chi nhánh Thành phố Hồ Chí Minh",
+		ShortName:     "DBSBank",
+		Code:          "DBS",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"970420": Bank{
+		BIN:           "970420",
+		Name:          "Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh",
+		ShortName:     "HDBank",
+		Code:          "HDB",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"458761": Bank{
+		BIN:           "458761",
+		Name:          "Ngân hàng TNHH MTV HSBC (Việt Nam)",
+		ShortName:     "HSBC",
+		Code:          "HSBC",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"668888": Bank{
+		BIN:           "668888",
+		Name:          "Ngân hàng Đại chúng TNHH Kasikornbank",
+		ShortName:     "KBank",
+		Code:          "KBankHCM",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"801011": Bank{
+		BIN:           "801011",
+		Name:          "Ngân hàng Nonghyup - Chi nhánh Hà Nội",
+		ShortName:     "Nonghyup",
+		Code:          "NonghyupBankHN",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"963388": Bank{
+		BIN:           "963388",
+		Name:          "Ngân hàng số Timo by Ban Viet Bank (Timo by Ban Viet Bank)",
+		ShortName:     "Timo",
+		Code:          "TIMO",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"546035": Bank{
+		BIN:           "546035",
+		Name:          "TMCP Việt Nam Thịnh Vượng - Ngân hàng số Ubank by VPBank",
+		ShortName:     "Ubank",
+		Code:          "Ubank",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"971011": Bank{
+		BIN:           "971011",
+		Name:          "VNPT Money",
+		ShortName:     "VNPTMoney",
+		Code:          "VNPTMONEY",
+		SWIFTCode:     "",
+		AndroidBundle: "",
+	},
+	"971005": Bank{
+		BIN:           "971005",
+		Name:          "Viettel Money",
+		ShortName:     "ViettelMoney",
+		Code:          "VTLMONEY",
 		SWIFTCode:     "",
 		AndroidBundle: "",
 	},

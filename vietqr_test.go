@@ -106,10 +106,11 @@ func TestBank(t *testing.T) {
 		{"970412", "PVCB", "WBVNVNVX"},
 		{"970425", "ABB", "ABBKVNVX"},
 		{"970422", "MB", "MSCBVNVX"},
+		{"546034", "CAKE", ""},
 	}
 
-	if len(vietqr.VNBankM) != 56 {
-		t.Errorf("Must have %d banks, but got %d banks", 56, len(vietqr.VNBankM))
+	if len(vietqr.VNBankM) < 56 {
+		t.Errorf("Must have at least %d banks, but got %d banks", 56, len(vietqr.VNBankM))
 	}
 	for _, tc := range testCases {
 		bank := vietqr.VNBankM[tc.BIN]
